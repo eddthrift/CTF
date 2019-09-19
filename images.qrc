@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>BlueAtt.png</file>
+        <file>BlueDef.png</file>
+        <file>BlueFlag.png</file>
+        <file>BlueTag.png</file>
+        <file>RedAtt.png</file>
+        <file>RedDef.png</file>
+        <file>RedFlag.png</file>
+        <file>RedTag.png</file>
+        <file>FlagBlue.png</file>
+        <file>FlagRed.png</file>
+        <file>BlueBase.png</file>
+        <file>RedBase.png</file>
+    </qresource>
+</RCC>
