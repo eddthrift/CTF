@@ -1,8 +1,8 @@
 #include "ControlWindow.h"
 #include "ui_ControlWindow.h"
-#include "Field.h"
+#include "Game.h"
 #include <QIntValidator>
-
+#include <QDoubleValidator>
 
 ControlWindow::ControlWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,16 +13,17 @@ ControlWindow::ControlWindow(QWidget *parent) :
     ui->playerNumEdit->setText("2");
     ui->playerNumEdit->setValidator(new QIntValidator(1,30,this));   //Stops text being entered
     ui->speedEdit->setText("5");
-    ui->speedEdit->setValidator(new QIntValidator(0.1,30,this));
+    ui->speedEdit->setValidator(new QDoubleValidator(0.1,30,3,this));
     ui->defSpeedEdit->setText("0.90");
-    ui->defSpeedEdit->setValidator(new QIntValidator(0.1,2,this));
+    ui->defSpeedEdit->setValidator(new QDoubleValidator(0.1,2,3,this));
     ui->lengthEdit->setText("50");
     ui->lengthEdit->setValidator(new QIntValidator(30,100,this));
     ui->widthEdit->setText("100");
     ui->widthEdit->setValidator(new QIntValidator(40,200,this));
 
-    oPlayfield = new Field();
-    oDisplay = new DisplayWindow(oPlayfield);
+    oPlayGame = new Game();
+    oField = new Field();
+    oDisplay = new DisplayWindow(oPlayGame);
 
     this->setGeometry(40, 40, 332, 221);                            //Sets position and geometry of the control window
 
@@ -34,7 +35,7 @@ ControlWindow::~ControlWindow()
 {
     delete oTimer;
     delete oDisplay;
-    delete oPlayfield;
+    delete oPlayGame;
     delete ui;
     delete oError;
 }
@@ -49,8 +50,8 @@ void ControlWindow::on_runButton_clicked(){
     int number = ui->playerNumEdit->text().toInt();                 //Converts values in lineEdits to variables to be used in the simulation
     double speed = ui->speedEdit->text().toDouble();
     double dSpeed = ui->defSpeedEdit->text().toDouble();
-    double length = ui->lengthEdit->text().toInt();
-    double width = ui->widthEdit->text().toInt();
+    int length = ui->lengthEdit->text().toInt();
+    int width = ui->widthEdit->text().toInt();
 
     if ((number < 2) || (number > 10)){                             //If incorrect values entered, show error message
         oError->showMessage("Players per team must be between 2 and 10.");
@@ -73,13 +74,13 @@ void ControlWindow::on_runButton_clicked(){
         ui->widthEdit->setText("100");
     }
     else{                                                           //Otherwise set field arguments
-        oPlayfield->SetPlayerNum(number);
-        oPlayfield->SetSize(width, length);
-        oPlayfield->SetSpeed(speed, dSpeed);
+        oPlayGame->SetPlayerNum(number);
+        oPlayGame->SetSize(width, length);
+        oPlayGame->SetSpeed(speed, dSpeed);
 
-        oPlayfield->CreatePlayers(number);                          //Create players
+        oPlayGame->CreatePlayers(number, oField);                          //Create players
 
-        oDisplay = new DisplayWindow(oPlayfield);                   //Create and show display window
+        oDisplay = new DisplayWindow(oPlayGame);                   //Create and show display window
 
         oDisplay->show();
 
@@ -91,18 +92,18 @@ void ControlWindow::on_runButton_clicked(){
 
 
 void ControlWindow::Simulate(){
-    if(oPlayfield->GetRun() == true){                               //Runs Simulation
-        oPlayfield->Simulate();
+    if(oPlayGame->GetRun() == true){                               //Runs Simulation
+        oPlayGame->Simulate();
     }
 }
 
 void ControlWindow::on_pauseButton_clicked()                        //Pauses simulation
 {
-    if(oPlayfield->GetRun() == true){
-        oPlayfield->SetRun(false);
+    if(oPlayGame->GetRun() == true){
+        oPlayGame->SetRun(false);
     }
     else{
-        oPlayfield->SetRun(true);
+        oPlayGame->SetRun(true);
     }
 }
 

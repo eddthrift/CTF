@@ -5,7 +5,7 @@
 #include "DisplayWindow.h"
 #include <QErrorMessage>
 #include <QTimer>
-#include "Field.h"
+#include "Game.h"
 
 namespace Ui {
 class ControlWindow;
@@ -30,7 +30,8 @@ private:
     QErrorMessage *oError;
     DisplayWindow *oDisplay;
     QTimer *oTimer;
-    Field *oPlayfield;
+    Game *oPlayGame;
+    Field *oField;
 
 };
 

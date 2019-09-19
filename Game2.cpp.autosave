@@ -1,0 +1,6 @@
+#include "Game2.h"
+
+Game2::Game2()
+{
+
+}

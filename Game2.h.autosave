@@ -1,0 +1,13 @@
+#ifndef GAME_H
+#define GAME_H
+
+#include "Player.h"
+
+
+class Game2
+{
+public:
+    Game2();
+};
+
+#endif // GAME_H

@@ -1,7 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "XYCoordinate.h"
+#include <iostream>
+#include "Field.h"
 
 class Player
 {
@@ -10,12 +11,13 @@ public:
 
     Player(const Player &);
 
-    Player(XYCoordinate Position, XYCoordinate Velocity, double MaxSpeed, bool HasFlag, bool Team, bool IsTagged, bool Attacker);
+    Player(int index, XYCoordinate position, XYCoordinate velocity, double maxSpeed, bool hasFlag, bool team, bool isTagged, bool attacker, Field *field);
 
     virtual ~Player();                                                             //Destructor
 
     void Print() const;
     void Move();
+    void FindPath(Field*);
 
     inline void SetPosition(XYCoordinate);                                          //Set method declarations
     inline void SetVelocity(XYCoordinate);
@@ -34,11 +36,14 @@ public:
     inline bool GetIsTagged() const;
     inline bool GetAttacker() const;
     inline bool GetHasTarget() const;
+    inline int GetPlayerIndex() const;
 
 private:
     XYCoordinate oPosition, oVelocity;                                              //Define private members
     double oMaxSpeed;
     bool oHasFlag, oTeam, oIsTagged, oAttacker, oHasTarget;
+    Field *oField;
+    int oPlayerIndex;
 
 };
 
@@ -57,6 +62,6 @@ inline bool Player::GetTeam() const {return oTeam;}
 inline bool Player::GetIsTagged() const {return oIsTagged;}
 inline bool Player::GetAttacker() const {return oAttacker;}
 inline bool Player::GetHasTarget() const {return oHasTarget;}
-
+inline int Player::GetPlayerIndex() const{return oPlayerIndex;}
 
 #endif // PLAYER_H

@@ -2,7 +2,7 @@
 #define DISPLAYWINDOW_H
 
 #include <QWidget>
-#include "Field.h"
+#include "Game.h"
 #include <QTimer>
 
 namespace Ui {
@@ -14,7 +14,7 @@ class DisplayWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit DisplayWindow(Field *oPlayfield, QWidget *parent = 0);
+    explicit DisplayWindow(Game *oPlayfield, QWidget *parent = 0);
     ~DisplayWindow();
 
 private slots:
@@ -22,6 +22,7 @@ private slots:
 
     private:
     Ui::DisplayWindow *ui;
+    Game *oDisplayGame;
     Field *oDisplayField;
     QTimer *oTimer;
 

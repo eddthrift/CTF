@@ -14,16 +14,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         ControlWindow.cpp \
-    Field.cpp \
     Player.cpp \
     XYCoordinate.cpp \
-    DisplayWindow.cpp
+    DisplayWindow.cpp \
+    Game.cpp \
+    Field.cpp
 
 HEADERS  += ControlWindow.h \
-    Field.h \
     Player.h \
     XYCoordinate.h \
-    DisplayWindow.h
+    DisplayWindow.h \
+    Game.h \
+    Field.h
 
 FORMS    += ControlWindow.ui \
     DisplayWindow.ui
